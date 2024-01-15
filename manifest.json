@@ -1,0 +1,25 @@
+{
+	"manifest_version": 2,
+	"name": "Text Saver",
+	"version": "1.0",
+
+	"description": "Tool for saving highlighted text to text files locally on your machine.",
+	"homepage_url": "https://github.com/parin-rau/super-eureka",
+
+	"commands": {
+		"save-selected": {
+			"suggested_key": {
+				"default": "Alt+Shift+P"
+			},
+			"description": "Send selected text to extension to create text file"
+		},
+		"save-selected-open": {
+			"suggested_key": {
+				"default": "Alt+Shift+O"
+			},
+			"description": "Send selected text to extension to create text file, then open file"
+		}
+	},
+
+	"permissions": ["activeTab", "menus", "downloads", "downloads.open"]
+}
