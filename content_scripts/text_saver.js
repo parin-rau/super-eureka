@@ -1,25 +1,27 @@
-// const fileContent = "testing123";
-// const fileName = "test.txt";
-// const options = { type: "text/plain" };
-
-// const file = new File([fileContent], fileName, options);
-
-// const download = () => {
-// 	const link = document.createElement("a");
-// 	const url = URL.createObjectURL(file);
-
-// 	link.href = url;
-// 	link.download = file.name;
-// 	document.body.appendChild(link);
-// 	link.click();
-
-// 	document.body.removeChild(link);
-// 	window.URL.revokeObjectURL(url);
-// };
-
-// download();
 (() => {
-	const download = (text) => {
+	if (window.hasRun) return;
+
+	window.hasRun = true;
+
+	// const getSelectedText = () => {
+	// 	const selObj = window.getSelection();
+	// 	const text = selObj.toString();
+	// 	return text;
+	// };
+
+	const getSelectedText = () => {
+		let text = "";
+		if (window.getSelection) {
+			text = window.getSelection().toString();
+		} else if (document.selection && document.selection.type != "Control") {
+			text = document.selection.createRange().text;
+		}
+		return text;
+	};
+
+	const downloadText = (text) => {
+		if (!text) return console.log("No text selected.");
+
 		const filename = text.split("\n")[0];
 
 		const a = document.createElement("a");
@@ -37,15 +39,62 @@
 		document.body.removeChild(a);
 	};
 
-	//browser.ContextType("selection")
-	browser.menus.create({});
+	console.log(getSelectedText());
 
-	browser.commands.onCommand.addListener((command) => {
-		if (command === "save-selected") {
-			console.log("save-selected");
-		}
-		if (command === "save-selected-open") {
-			console.log("save and open");
-		}
-	});
+	// const onCreated = () => {
+	// 	if (browser.runtime.lastError) {
+	// 		console.error(`Error: ${browser.runtime.lastError}`);
+	// 	} else {
+	// 		console.log("Item created successfully");
+	// 	}
+	// };
+
+	// browser.menus.create(
+	// 	{
+	// 		id: "save-selected",
+	// 		title: "Save selected text",
+	// 		contexts: ["selection"],
+	// 		onclick: () => console.log(getSelectedText()),
+	// 	},
+	// 	onCreated
+	// );
+
+	// browser.menus.create(
+	// 	{
+	// 		id: "always present",
+	// 		title: "test: always present button",
+	// 		contexts: ["all"],
+	// 		onclick: () => {
+	// 			console.log("clicky");
+	// 		},
+	// 	},
+	// 	onCreated
+	// );
+
+	// browser.commands.onCommand.addListener((command) => {
+	// 	if (command === "save-selected") {
+	// 		console.log("save-selected");
+	// 	}
+	// 	if (command === "save-selected-open") {
+	// 		console.log("save and open");
+	// 	}
+	// });
 })();
+
+// browser.menus.create({
+// 	id: "selected-only-test",
+// 	title: "Test: shows up only when text is selected",
+// 	contexts: ["selected"],
+// 	onClick: () => {
+// 		console.log("secret clicky");
+// 	},
+// });
+
+// browser.menus.create({
+// 	id: "save-selected",
+// 	title: "Save selected text",
+// 	contexts: ["all"],
+// 	onClick: () => {
+// 		console.log("clicky");
+// 	},
+// });
