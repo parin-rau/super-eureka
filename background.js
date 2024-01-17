@@ -9,7 +9,7 @@
 			"href",
 			"data:text/plain;charset=utf-8," + encodeURIComponent(text)
 		);
-		a.setAttribute("download", filename);
+		a.setAttribute("download", filename + ".txt");
 
 		a.style.display = "none";
 		document.body.appendChild(a);
@@ -31,15 +31,6 @@
 		{
 			id: "save-selected",
 			title: "Save selected text",
-			contexts: ["selection"],
-		},
-		onCreated
-	);
-
-	browser.menus.create(
-		{
-			id: "save-selected-open",
-			title: "Save selected text and open file for editing",
 			contexts: ["selection"],
 		},
 		onCreated
